@@ -1,16 +1,27 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
-const { User } = require('../api/server.js');
+const { User } = require('../models');
 
 const jwtKey = process.env.JWT_KEY
 
-const verifyAuth = (token) => {
-  const decoded = jwt.verify(token, jwtKey);
-  const user = User.findOne({ where: { user_name: decoded?.userName } });
-  if (user) {
-    return true;
+const verifyAuthLogin = async (data) => {
+  const user = await User.findOne({ where: { user_name: data.username } });
+  if (!user) {
+    return { message: 'Usuário não encontrado' };
   }
-  return false;
+  const decoded = jwt.verify(user.token_jwt, jwtKey);
+  if (decoded.password !== data.password) {
+    return { message: 'Senha incorreta' }
+  }
+  return { message: 'Sucesso', token: user.token_jwt };
+}
+
+const verifyLogged = async (token) => {
+  const user = await User.findOne({ where: { token_jwt: token } });
+  if (user) {
+    return true
+  }
+  return false
 }
 
 const createToken = (data) => {
@@ -18,4 +29,4 @@ const createToken = (data) => {
   return coded;
 }
 
-module.exports = { verifyAuth, createToken }
+module.exports = { verifyAuthLogin, createToken, verifyLogged }
