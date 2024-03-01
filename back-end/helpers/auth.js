@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
+const { User } = require('../api/server.js');
 
 const jwtKey = process.env.JWT_KEY
 
