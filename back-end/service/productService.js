@@ -18,7 +18,7 @@ const verifySomeFieldIsEmpty = (object) => {
       if (!labelsObject.includes(label)) {
         responseVerify = `O campo "${ label }" é obrigatório`
       }
-    })
+    });
     return responseVerify;
   }
   object.product.forEach((elem) => {
@@ -82,13 +82,15 @@ const createProduct = async (token, data) => {
   const userLogged = verifyLogged(token);
   if (userLogged) {
     const productsForDb = verifyAndConvertStructure(data);
-    const verifyIsEmpty = verifySomeFieldIsEmpty(productsForDb.product);
+    const verifyIsEmpty = verifySomeFieldIsEmpty(productsForDb);
     if (verifyIsEmpty) {
       return { empty: verifyIsEmpty }
     } else if (productsForDb.typeProduct === 'simple') {
       await Phone.create(productsForDb.product);
     } else {
-      await Phone.createMany(productsForDb.product);
+      productsForDb.product.forEach( async (prod) => {
+        await Phone.create(prod);
+      });
     }
     return true;
   }
