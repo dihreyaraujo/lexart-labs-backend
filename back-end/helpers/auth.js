@@ -17,6 +17,9 @@ const verifyAuthLogin = async (data) => {
 }
 
 const verifyLogged = async (token) => {
+  if (!token) {
+    return false;
+  }
   const user = await User.findOne({ where: { token_jwt: token } });
   if (user) {
     return true
