@@ -70,7 +70,7 @@ routes.get('/products', async (req, res) => {
   }
 });
 
-routes.update('/products', async (req, res) => {
+routes.put('/products', async (req, res) => {
   try {
     const { Authorization } = req.headers;
     const data = req.body;
