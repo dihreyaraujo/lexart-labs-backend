@@ -12,5 +12,5 @@
       "dest": "src/api/server.js"
     }
   ],
-  "installCommand": "npm install pg"
+  "installCommand": "npm install"
 }
