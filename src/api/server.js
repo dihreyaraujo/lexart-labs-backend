@@ -1,3 +1,4 @@
+const pg = require('pg');
 const app = require('./app.js');
 const phone = require('./config.js');
 require('dotenv').config();
