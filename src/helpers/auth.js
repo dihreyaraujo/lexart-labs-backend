@@ -16,6 +16,14 @@ const verifyAuthLogin = async (data) => {
   return { message: 'Sucesso', token: user.token_jwt };
 }
 
+const verifyExistUser = async (username) => {
+  const user = await User.findOne({ where: { user_name: username } });
+  if (user) {
+    return { message: 'Este usuário já existe' }
+  }
+  return undefined;
+}
+
 const verifyLogged = async (token) => {
   if (!token) {
     return false;
@@ -32,4 +40,4 @@ const createToken = (data) => {
   return coded;
 }
 
-module.exports = { verifyAuthLogin, createToken, verifyLogged }
+module.exports = { verifyAuthLogin, createToken, verifyLogged, verifyExistUser }

@@ -11,8 +11,12 @@ routes.post('/register', async (req, res) => {
     const data = req.body;
     const token = createToken(data);
     console.log('token: ', token)
-    await registerUserService(data, token);
-    res.status(201).json({ message: 'Usuário criado com sucesso.' })
+    const user = await registerUserService(data, token);
+    if (user?.message) {
+      res.status(400).json(user);
+    } else {
+      res.status(201).json({ message: 'Usuário criado com sucesso.' })
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message })
