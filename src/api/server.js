@@ -17,5 +17,4 @@ app.listen(port, async () => {
     console.error("Error in sync the tabel: ", error);
   }
 });
-
-module.exports = { Phone, User };
+// module.exports = { Phone, User };
