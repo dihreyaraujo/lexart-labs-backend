@@ -6,8 +6,8 @@ const UserModel = require('../models/User.js');
 
 const port = process.env.API_PORT || 3001;
 
-const Phone = PhoneModel(phone);
-const User = UserModel(phone);
+PhoneModel(phone);
+UserModel(phone);
 
 app.listen(port, async () => {
   try {
