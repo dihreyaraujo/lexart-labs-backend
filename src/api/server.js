@@ -6,12 +6,13 @@ const UserModel = require('../models/User.js');
 
 const port = process.env.API_PORT || 3001;
 
-PhoneModel(phone);
-UserModel(phone);
+const phoneModel = PhoneModel(phone);
+const userModel = UserModel(phone);
 
 app.listen(port, async () => {
   try {
-    await phone.sync();
+    await phoneModel.sync();
+    await userModel.sync();
     console.log(`API running on PORT: ${port}`);
   } catch (error) {
     console.error("Error in sync the tabel: ", error);
