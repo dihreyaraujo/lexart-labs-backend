@@ -15,7 +15,12 @@ const phone = new Sequelize(database, username, password, {
   host,
   dialect: 'postgres',
   port,
-  dialectModule: require('pg')
+  dialectModule: require('pg'),
+  dialectOptions: {
+    ssl: {
+      require: true
+    }
+  }
 });
 
 // const phone = new Sequelize("postgres://default:Pi4nSqCAcx2W@ep-restless-frost-a4b9orug.us-east-1.aws.neon.tech:5432/verceldb?sslmode=require", {
