@@ -43,9 +43,9 @@ routes.post('/login', async (req, res) => {
 
 routes.post('/products', async (req, res) => {
   try {
-    const { Authorization } = req.headers;
+    const { authorization } = req.headers;
     const data = req.body;
-    const products = await createProduct(Authorization, data);
+    const products = await createProduct(authorization, data);
     if (products.empty) {
       res.status(401).json({ message: products.empty });
     } else if (products) {
@@ -61,8 +61,8 @@ routes.post('/products', async (req, res) => {
 
 routes.get('/products', async (req, res) => {
   try {
-    const { Authorization } = req.headers;
-    const products = await getProduct(Authorization);
+    const { authorization } = req.headers;
+    const products = await getProduct(authorization);
     if (products) {
       res.status(200).json(products);
     } else {
@@ -76,9 +76,9 @@ routes.get('/products', async (req, res) => {
 
 routes.put('/products', async (req, res) => {
   try {
-    const { Authorization } = req.headers;
+    const { authorization } = req.headers;
     const data = req.body;
-    const products = await updateProduct(Authorization, data);
+    const products = await updateProduct(authorization, data);
     if (products) {
       res.status(200).json({ message: 'Produto atualizado com sucesso' });
     } else {
@@ -90,11 +90,11 @@ routes.put('/products', async (req, res) => {
   }
 });
 
-routes.delete('/products', async (req, res) => {
+routes.post('/productsDelete', async (req, res) => {
   try {
-    const { Authorization } = req.headers;
+    const { authorization } = req.headers;
     const data = req.body;
-    const products = await deleteProduct(Authorization, data);
+    const products = await deleteProduct(authorization, data.id);
     if (products) {
       res.status(200).json({ message: 'Produto excluído com sucesso' });
     } else {

@@ -79,7 +79,7 @@ const verifyAndConvertStructure = (product) => {
 }
 
 const createProduct = async (token, data) => {
-  const userLogged = verifyLogged(token);
+  const userLogged = await verifyLogged(token);
   if (userLogged) {
     const productsForDb = verifyAndConvertStructure(data);
     const verifyIsEmpty = verifySomeFieldIsEmpty(productsForDb);
@@ -98,7 +98,7 @@ const createProduct = async (token, data) => {
 }
 
 const getProduct = async (token) => {
-  const userLogged = verifyLogged(token);
+  const userLogged = await verifyLogged(token);
   if (userLogged) {
     const phonesDb = await Phone.findAll();
     return phonesDb;
@@ -107,7 +107,7 @@ const getProduct = async (token) => {
 }
 
 const updateProduct = async (token, data) => {
-  const userLogged = verifyLogged(token);
+  const userLogged = await verifyLogged(token);
   if (userLogged) {
     await Phone.update(data, { where: { id: data.id } });
     return true;
@@ -116,7 +116,7 @@ const updateProduct = async (token, data) => {
 }
 
 const deleteProduct = async (token, id) => {
-  const userLogged = verifyLogged(token);
+  const userLogged = await verifyLogged(token);
   if (userLogged) {
     await Phone.destroy({ where: { id } });
     return true;
